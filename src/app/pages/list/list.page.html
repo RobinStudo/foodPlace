@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list</ion-title>
+    <ion-title>Liste des restaurants</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <p *ngIf="places.length > 0; else emptyList">
+        Il y a {{ places.length }} restaurants disponibles
+    </p>
+    <ng-template #emptyList>
+        Aucun restaurant disponible pour le moment
+    </ng-template>
 
+    <ion-card *ngFor="let place of places">
+        <img [src]="place.image" [alt]="place.name">
+        <ion-card-header>
+            <ion-card-subtitle>{{ place.category }}</ion-card-subtitle>
+            <ion-card-title>{{ place.name }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            {{ place.location.address }}
+        </ion-card-content>
+      </ion-card>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="showPreviewModal()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
