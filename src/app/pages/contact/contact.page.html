@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h1 #mainTitle>{{ title }}</h1>
+
+    <p>{{ mainTitle.innerText }}</p>
+
+    <img [src]="img" alt="Super image" (click)="clickedPicture()">
+
+    <input type="text" #mainInput value="Bonjour">
+
+    <p>{{ mainInput.value }}</p>
+
+    <ul>
+        <li *ngFor="let user of users">
+            {{ user }}
+        </li>
+    </ul>
+
+    <p *ngIf="isConnected; else loginBox">
+        Vous êtes connecté(e)
+    </p>
+
+    <ng-template #loginBox>
+        Vous n'êtes pas connecté(e)
+    </ng-template>
+</ion-content>
