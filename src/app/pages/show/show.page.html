@@ -13,7 +13,7 @@
     <ion-card>
         <img [src]="place.image" [alt]="place.name">
         <ion-card-header>
-          <ion-card-subtitle>{{ place.category }}</ion-card-subtitle>
+          <ion-card-subtitle [innerHtml]="place.category|categoryIcon"></ion-card-subtitle>
           <ion-card-title>{{ place.location.address }}</ion-card-title>
         </ion-card-header>
       
@@ -32,7 +32,7 @@
 
         <ion-item>
             <ion-label>
-                Ajouté le : {{ place.createdAt }}
+                Ajouté le : {{ place.createdAt|date:"dd MMMM yyyy" }}
             </ion-label>
         </ion-item>
 </ion-content>
