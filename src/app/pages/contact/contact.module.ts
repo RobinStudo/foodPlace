@@ -13,7 +13,7 @@ import { ContactPage } from './contact.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactPageRoutingModule
+    ContactPageRoutingModule,
   ],
   declarations: [ContactPage]
 })

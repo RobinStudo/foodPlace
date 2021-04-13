@@ -1,7 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Liste des restaurants</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Liste des restaurants</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -12,7 +17,7 @@
         Aucun restaurant disponible pour le moment
     </ng-template>
 
-    <ion-card *ngFor="let place of places">
+    <ion-card *ngFor="let place of places" [routerLink]="'/show/' + place.id">
         <img [src]="place.image" [alt]="place.name">
         <ion-card-header>
             <ion-card-subtitle>{{ place.category }}</ion-card-subtitle>
@@ -22,11 +27,10 @@
         <ion-card-content>
             {{ place.location.address }}
         </ion-card-content>
-      </ion-card>
-
+    </ion-card>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="showPreviewModal()">
+        <ion-fab-button (click)="showPreviewModal()" color="tertiary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -12,9 +13,9 @@ export class ContactPage implements OnInit {
     private isConnected: boolean = true;
 
 
-    constructor() { }
+    constructor(){}
 
-    ngOnInit() {
+    ngOnInit(){
     }
 
     clickedPicture(){
