@@ -12,7 +12,7 @@ export class ListPage implements OnInit {
     private loaded: boolean = false;
     private places: Object;
 
-    constructor(public alertCtrl: AlertController, public placeService: PlaceService){}
+    constructor(public placeService: PlaceService){}
 
     ngOnInit(){
         this.load();
@@ -25,15 +25,5 @@ export class ListPage implements OnInit {
         }).add( () => {
             this.loaded = true;
         });
-    }
-
-    async showPreviewModal(){
-        const alert = await this.alertCtrl.create({
-            header: 'Bientôt disponible',
-            message: 'Cette fonctionnalité sera bientôt ajouté. Restez connecté !',
-            buttons: ['OK']
-        });
-
-        await alert.present();
     }
 }
