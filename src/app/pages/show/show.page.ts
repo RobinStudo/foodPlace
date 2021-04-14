@@ -8,13 +8,18 @@ import { PlaceService } from 'src/app/services/place.service';
   styleUrls: ['./show.page.scss'],
 })
 export class ShowPage implements OnInit {
-    private place: any; 
+    private place: Object; 
+    private loaded: boolean = false;
 
     constructor(public route: ActivatedRoute, public placeService: PlaceService){}
 
     ngOnInit(){
         let id = parseInt( this.route.snapshot.params['id'] );
-        this.place = this.placeService.getById(id);
+        this.placeService.getById(id).subscribe( place => {
+            this.place = place;
+        }).add( () => {
+            this.loaded = true;
+        });
     }
 
 }

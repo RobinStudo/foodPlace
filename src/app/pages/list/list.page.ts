@@ -9,12 +9,22 @@ import { PlaceService } from 'src/app/services/place.service';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
-    private places: Array<any>;
+    private loaded: boolean = false;
+    private places: Object;
 
     constructor(public alertCtrl: AlertController, public placeService: PlaceService){}
 
     ngOnInit(){
-        this.places = this.placeService.getAll();
+        this.load();
+    }
+
+    load(){
+        this.loaded = false;
+        this.placeService.getAll().subscribe( places => {
+            this.places = places;
+        }).add( () => {
+            this.loaded = true;
+        });
     }
 
     async showPreviewModal(){
