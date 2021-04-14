@@ -23,7 +23,7 @@ export class CategoryIconPipe implements PipeTransform {
             return '<i class="fas fa-' + icon + '"></i> ' + value;
         }
 
-        return '<i class="fas fa-' + icon + '"></i> ';
+        return '<i class="fas fa-' + icon + '"></i>';
     }
 
 }

@@ -1,0 +1,20 @@
+{
+  "book": [
+    {
+      "id": 1,
+      "name": "Sous les vents de neptune"
+    },
+    {
+      "id": 2,
+      "name": "Seul à savoir"
+    },
+    {
+      "id": 3,
+      "name": "Black-out"
+    },
+    {
+      "name": "Le rouge et le noir",
+      "id": 4
+    }
+  ]
+}
