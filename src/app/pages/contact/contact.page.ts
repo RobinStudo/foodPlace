@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContactModel } from 'src/app/models/contact.model';
 
 @Component({
   selector: 'app-contact',
@@ -7,22 +8,32 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
-    private title: string = 'Contactez-nous';
-    private img: string = 'https://via.placeholder.com/350x150';
-    private users: Array<string> = ['Paul', 'Pierre', 'Leo'];
-    private isConnected: boolean = true;
+    private contactForm: FormGroup;
 
-
-    constructor(){}
+    constructor(public formBuilder: FormBuilder){}
 
     ngOnInit(){
+        this.buildForm();
     }
 
-    clickedPicture(){
-        console.log('Clicked');
+    buildForm(){
+        this.contactForm = this.formBuilder.group({
+            name: ['', [Validators.required, Validators.minLength(3)]],
+            email: ['', [Validators.required, Validators.email]],
+            subject: ['', [Validators.required, Validators.minLength(3)]],
+            content: ['', [Validators.required, Validators.minLength(20)]],
+        });
     }
 
-    // keyPressed(value){
-    //     console.log(value);
-    // }
+    send(){
+        let values = this.contactForm.value;
+        let model = new ContactModel(
+            values['name'],
+            values['email'],
+            values['subject'],
+            values['content']
+        );
+    }
+
+
 }
