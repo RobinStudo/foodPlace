@@ -12,16 +12,16 @@ const routes: Routes = [
         loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
     },
     {
-        path: 'list',
-        loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule)
-    },
-    {
         path: 'show/:id',
         loadChildren: () => import('./pages/show/show.module').then( m => m.ShowPageModule)
     },
     {
         path: 'add',
         loadChildren: () => import('./pages/add/add.module').then( m => m.AddPageModule)
+    },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
     },
 ];
 
