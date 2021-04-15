@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LocationModel } from 'src/app/models/location.model';
 import { PlaceModel } from 'src/app/models/place.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -16,10 +17,12 @@ export class AddPage implements OnInit {
     private categories: Array<string>;
     private submited: boolean = false;
     private loader: boolean = false;
+    private nativePicture: string;
 
     constructor(
         public formBuilder: FormBuilder,
         public router: Router,
+        public camera: Camera,
         public categoryService: CategoryService, 
         public placeService: PlaceService
     ){}
@@ -34,10 +37,8 @@ export class AddPage implements OnInit {
             name: ['', [Validators.required, Validators.minLength(3)]],
             description: ['', [Validators.required, Validators.minLength(20)]],
             address: ['', [Validators.required]],
-            image: ['', [
-                Validators.required, 
-                Validators.pattern(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)
-            ]],
+            image: [''],
+            nativeImage: [''],
             note: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
             category: ['', [Validators.required]],
         });
@@ -45,18 +46,20 @@ export class AddPage implements OnInit {
 
     save(){
         this.submited = true;
-        this.loader = true;
         if(!this.placeForm.valid){
             return;
         }
+        this.loader = true;
 
         let values = this.placeForm.value;
+        let image = this.nativePicture ? this.nativePicture : values['image'];
+        
         let location = new LocationModel(values['address']);
         let place = new PlaceModel(
             values['name'],
             values['description'],
             location,
-            values['image'],
+            image,
             values['note'],
             values['category'],
             new Date()
@@ -71,5 +74,32 @@ export class AddPage implements OnInit {
 
     getForm(){
         return this.placeForm.controls;
+    }
+
+    takePicture(){
+        const options: CameraOptions = {
+            quality: 20,
+            destinationType: this.camera.DestinationType.DATA_URL,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+        };
+
+        this.camera.getPicture(options).then(data => {
+            this.nativePicture = 'data:image/jpeg;base64,' + data;
+            this.getForm().nativeImage.setValue(this.nativePicture);
+        });
+    }
+
+    validateImage(form: FormControl, native: FormControl){
+        if(native.value){
+            return null;
+        }
+
+        let regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+        if(form.value && regex.test(form.value)){
+            return null;
+        }
+        
+        return {error: true};
     }
 }

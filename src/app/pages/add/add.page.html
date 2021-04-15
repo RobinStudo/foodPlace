@@ -41,6 +41,14 @@
             Vous devez saisir une URL d'image valide
         </div>
 
+        <div>
+            <ion-button (click)="takePicture()">Prendre une photo</ion-button>
+
+            <div *ngIf="nativePicture">
+                <img [src]="nativePicture" alt="Preview">
+            </div>
+        </div>
+
         <ion-item>
             <ion-label>Note</ion-label>
             <ion-range min="1" max="5" pin="true" snaps="true" color="secondary" formControlName="note">

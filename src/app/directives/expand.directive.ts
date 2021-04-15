@@ -1,7 +1,7 @@
 import { AfterContentInit, Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[expand]'
+    selector: '[app-expand]'
 })
 export class ExpandDirective implements AfterContentInit{
     private text: string;

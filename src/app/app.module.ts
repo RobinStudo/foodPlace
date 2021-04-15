@@ -10,6 +10,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { Camera } from '@ionic-native/camera/ngx';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -17,7 +18,11 @@ registerLocaleData(localeFr, 'fr');
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, {provide: LOCALE_ID, useValue: 'fr' }],
+  providers: [
+      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
+      {provide: LOCALE_ID, useValue: 'fr' },
+      Camera
+    ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

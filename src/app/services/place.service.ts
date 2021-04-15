@@ -6,7 +6,7 @@ import { PlaceModel } from '../models/place.model';
     providedIn: 'root'
 })
 export class PlaceService {
-    private url: string = "http://localhost:3000/place";
+    private url: string = "http://192.168.0.16:3000/place";
 
     constructor(public http: HttpClient){}
 
