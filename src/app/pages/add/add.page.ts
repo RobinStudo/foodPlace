@@ -41,6 +41,8 @@ export class AddPage implements OnInit {
             nativeImage: [''],
             note: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
             category: ['', [Validators.required]],
+        }, {
+            validator: this.validateImage('image', 'nativeImage'),
         });
     }
 
@@ -90,16 +92,21 @@ export class AddPage implements OnInit {
         });
     }
 
-    validateImage(form: FormControl, native: FormControl){
-        if(native.value){
-            return null;
-        }
+    validateImage(form: string, native: string){
+        return (formGroup: FormGroup) => {
+            let image = formGroup.controls[form];
+            let nativeImage = formGroup.controls[native];
 
-        let regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-        if(form.value && regex.test(form.value)){
-            return null;
-        }
-        
-        return {error: true};
+            if(nativeImage.value){
+                return image.setErrors(null);
+            }
+
+            let regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+            if(image.value && regex.test(image.value)){
+                return image.setErrors(null);
+            }
+
+            return image.setErrors({noImage: true});
+        };
     }
 }
